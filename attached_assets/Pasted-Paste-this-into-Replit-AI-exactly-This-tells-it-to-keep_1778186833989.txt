@@ -1,0 +1,392 @@
+Paste this into Replit AI exactly.
+This tells it to keep the logic but rebuild the experience cleanly instead of preserving the messy structure.
+
+
+---
+
+Rebuild this imported Phato project into a much cleaner and more modern version while preserving the core transport logic and realtime map behavior.
+
+The current imported GitHub project is messy, inconsistent, overcomplicated, and visually outdated. Do not preserve the current UI structure or unnecessary architecture. Instead, extract the useful transport logic and rebuild the experience from scratch with a clean component system and minimal structure.
+
+Main goal
+
+Create a super smooth, ultra-minimal, black-and-white transport app inspired by:
+
+ChatGPT simplicity
+
+Apple-level smoothness
+
+Uber map clarity
+
+modern lightweight interfaces
+
+
+The app should feel:
+
+fast
+
+calm
+
+premium
+
+responsive
+
+minimal
+
+realtime
+
+map-first
+
+
+Launch flow
+
+When the app launches:
+
+show a black splash screen
+
+animate white dots smoothly for exactly 2.2 seconds
+
+then automatically open the Passenger screen
+
+
+Do not show role selection at startup anymore.
+
+Main structure
+
+The app should now use:
+
+one main Passenger experience
+
+one Driver mode
+
+sidebar-based navigation
+
+map-first layout
+
+reusable components
+
+lightweight architecture
+
+
+Remove unnecessary complexity from the imported project.
+
+Passenger screen
+
+The Passenger screen should open immediately after splash.
+
+Top section
+
+At the top:
+
+a minimal search bar
+
+a hamburger icon on the right side of the search bar
+
+
+The search bar should:
+
+support destination search
+
+look extremely clean
+
+black/white only
+
+soft rounded corners
+
+subtle shadow
+
+smooth focus animation
+
+
+Sidebar
+
+When the hamburger icon is pressed:
+
+open a smooth sidebar drawer
+
+
+The sidebar should contain:
+
+Profile
+
+Trips
+
+Saved Places
+
+Notifications
+
+Settings
+
+Help
+
+About Phato
+
+Become a Driver
+
+
+The sidebar should:
+
+slide smoothly
+
+be minimal
+
+use black/white colors only
+
+not feel crowded
+
+use soft typography and spacing
+
+
+Driver mode
+
+When the user presses “Become a Driver”:
+
+instantly switch to Driver mode
+
+no verification yet
+
+no complicated onboarding
+
+smooth animated transition
+
+
+Later verification can be added, but not now.
+
+Driver screen
+
+The Driver screen should include:
+
+live map
+
+route line
+
+live driver marker
+
+online/offline toggle
+
+seat counter
+
+passenger request cards
+
+quick accept/decline buttons
+
+destination setting
+
+trip status
+
+quick pings
+
+chat tray
+
+
+The Driver screen must stay:
+
+lightweight
+
+minimal
+
+black/white
+
+fast
+
+
+Keep and improve the core transport logic
+
+Preserve and improve these systems from the imported codebase:
+
+realtime location updates
+
+route polylines
+
+route matching
+
+passenger-driver direction matching
+
+pickup requests
+
+trip state
+
+trip tracking
+
+chat
+
+quick pings
+
+corridor intelligence
+
+map overlays
+
+seat logic
+
+nearby vehicle logic
+
+
+Completely redesign the UI
+
+Do NOT reuse:
+
+old cards
+
+old spacing
+
+old colors
+
+old cluttered structure
+
+inconsistent components
+
+
+Replace them with:
+
+unified design system
+
+clean typography
+
+smooth bottom sheets
+
+soft transitions
+
+floating panels
+
+modern map overlays
+
+clean icon system
+
+minimal controls
+
+
+Map behavior
+
+The map must be the center of the experience.
+
+The map should include:
+
+smooth moving markers
+
+live route polylines
+
+destination line
+
+pickup markers
+
+subtle demand halos
+
+zoom controls
+
+recenter button
+
+clean map overlays
+
+active vehicle indicators
+
+
+Make all map motion smooth and lightweight.
+
+Design system
+
+Use:
+
+black background or soft white background depending on theme
+
+white/gray elements
+
+subtle borders
+
+soft blur/glass effects
+
+rounded corners
+
+clean spacing
+
+thin typography
+
+smooth transitions
+
+
+Avoid:
+
+bright colors
+
+heavy gradients
+
+noisy visuals
+
+clutter
+
+thick borders
+
+oversized buttons
+
+
+Technical cleanup
+
+Refactor the project into:
+
+reusable hooks
+
+reusable map components
+
+cleaner state management
+
+simplified routing
+
+cleaner folders
+
+lightweight architecture
+
+
+Remove unused code and duplicated logic from the imported project.
+
+Performance
+
+The app must feel:
+
+instant
+
+fluid
+
+optimized
+
+mobile-first
+
+
+Prioritize:
+
+1. smoothness
+
+
+2. fast rendering
+
+
+3. clean animations
+
+
+4. minimal memory usage
+
+
+5. map responsiveness
+
+
+
+Final expected result
+
+The final app should feel like a premium realtime local transport platform.
+
+Flow:
+
+splash animation
+
+passenger map opens
+
+search + hamburger at top
+
+sidebar navigation
+
+become driver from sidebar
+
+instant driver switch
+
+realtime map transport experience
+
+
+Keep the strong transport logic from the imported project, but completely redesign the UX/UI into a modern black-and-white smooth system.

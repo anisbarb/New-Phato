@@ -1,0 +1,283 @@
+For your new clean Phato, keep the folders very simple.
+
+Use this structure:
+
+phato/
+├── public/
+├── src/
+├── package.json
+├── vite.config.ts
+├── tsconfig.json
+└── README.md
+
+Inside src/:
+
+src/
+├── app/
+├── components/
+├── screens/
+├── maps/
+├── hooks/
+├── services/
+├── store/
+├── styles/
+├── types/
+├── utils/
+└── main.tsx
+
+
+---
+
+What each folder should do
+
+app/
+
+Core app structure.
+
+Example:
+
+app/
+├── router.tsx
+├── providers.tsx
+└── layout.tsx
+
+Handles:
+
+routing
+
+global layout
+
+app initialization
+
+theme setup
+
+
+
+---
+
+components/
+
+Reusable UI pieces.
+
+Example:
+
+components/
+├── SearchBar/
+├── Sidebar/
+├── BottomSheet/
+├── VehicleCard/
+├── SeatCounter/
+├── SplashDots/
+├── ChatTray/
+└── RoutePill/
+
+Only reusable UI here.
+
+
+---
+
+screens/
+
+Actual pages/screens.
+
+Example:
+
+screens/
+├── PassengerScreen/
+├── DriverScreen/
+├── TripScreen/
+├── SettingsScreen/
+└── ProfileScreen/
+
+Each screen controls layout + logic.
+
+
+---
+
+maps/
+
+Everything map-related.
+
+Example:
+
+maps/
+├── MapView.tsx
+├── VehicleMarkers.tsx
+├── RoutePolyline.tsx
+├── DemandHalo.tsx
+├── PickupMarkers.tsx
+└── mapStyles.ts
+
+Keep all map logic isolated here.
+
+
+---
+
+hooks/
+
+Custom React hooks.
+
+Example:
+
+hooks/
+├── useLocation.ts
+├── useSocket.ts
+├── useDriverMode.ts
+├── useRoutes.ts
+└── useTrip.ts
+
+Used for:
+
+realtime
+
+location
+
+route fetching
+
+driver state
+
+trip logic
+
+
+
+---
+
+services/
+
+Backend/API/realtime logic.
+
+Example:
+
+services/
+├── socket.ts
+├── routing.ts
+├── location.ts
+├── matching.ts
+└── storage.ts
+
+This is the app engine.
+
+
+---
+
+store/
+
+Global state.
+
+Example:
+
+store/
+├── appStore.ts
+├── tripStore.ts
+├── userStore.ts
+└── driverStore.ts
+
+Used for:
+
+user state
+
+trip state
+
+map state
+
+driver mode
+
+
+
+---
+
+styles/
+
+Global styling.
+
+Example:
+
+styles/
+├── globals.css
+├── theme.css
+└── animations.css
+
+This keeps the black/white design consistent.
+
+
+---
+
+types/
+
+TypeScript types.
+
+Example:
+
+types/
+├── user.ts
+├── trip.ts
+├── vehicle.ts
+└── route.ts
+
+
+---
+
+utils/
+
+Small helper functions.
+
+Example:
+
+utils/
+├── distance.ts
+├── formatTime.ts
+├── polyline.ts
+└── smoothMotion.ts
+
+
+---
+
+BEST PART
+
+This structure is:
+
+minimal
+
+scalable
+
+very clean
+
+easy to understand
+
+fast to work with
+
+perfect for Replit
+
+perfect for your Phato idea
+
+
+Not enterprise mess.
+
+
+---
+
+Very important
+
+DO NOT create:
+
+100 folders
+
+complex backend folders
+
+microservices
+
+unnecessary configs
+
+
+Right now your power is:
+
+transport logic
+
+map UX
+
+realtime feel
+
+simplicity
+
+
+That’s what makes Phato interesting.

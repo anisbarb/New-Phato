@@ -1,8 +1,10 @@
-modules = ["nodejs-24"]
+modules = ["nodejs-20"]
 
 [deployment]
 router = "application"
 deploymentTarget = "autoscale"
+run = ["node", "./dist/index.cjs"]
+build = ["npm", "run", "build"]
 
 [deployment.postBuild]
 args = ["pnpm", "store", "prune"]
@@ -23,6 +25,10 @@ args = "API Server"
 [[workflows.workflow.tasks]]
 task = "workflow.run"
 args = "Relationships"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
 
 [[workflows.workflow]]
 name = "API Server"
@@ -48,8 +54,20 @@ waitForPort = 3001
 [workflows.workflow.metadata]
 outputType = "webview"
 
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "PORT=5000 BASE_PATH=/ pnpm --filter @workspace/ride run dev"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
 [agent]
-stack = "PNPM_WORKSPACE"
+stack = "FULLSTACK_JS"
 expertMode = true
 
 [postMerge]
@@ -79,6 +97,10 @@ externalPort = 6800
 [[ports]]
 localPort = 3005
 externalPort = 8000
+
+[[ports]]
+localPort = 5173
+externalPort = 9000
 
 [[ports]]
 localPort = 8080
@@ -111,3 +133,10 @@ externalPort = 3002
 [[ports]]
 localPort = 25106
 externalPort = 3003
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[nix]
+channel = "stable-25_05"
