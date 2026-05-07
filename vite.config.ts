@@ -31,4 +31,7 @@ export default defineConfig({
     host: "0.0.0.0",
     allowedHosts: true,
   },
+  optimizeDeps: {
+    include: ["react", "react-dom", "wouter", "framer-motion", "leaflet", "react-leaflet"],
+  },
 });
