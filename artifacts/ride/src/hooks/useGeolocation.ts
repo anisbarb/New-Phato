@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { watchPosition } from "@/lib/geolocation";
-import type { GeoError } from "@/lib/geolocation";
-import type { LatLng } from "@/lib/types";
+import { watchPosition } from "../utils/geo";
+import type { GeoError } from "../utils/geo";
+import type { LatLng } from "../types";
 
 type GeoState = {
   position: LatLng | null;
@@ -18,16 +18,11 @@ export function useGeolocation(active = true): GeoState {
 
   useEffect(() => {
     if (!active) return;
-    const stop = watchPosition(
+    return watchPosition(
       (pos) => setState({ position: pos, error: null, ready: true }),
       (err) =>
-        setState((prev) => ({
-          position: prev.position,
-          error: err,
-          ready: true,
-        })),
+        setState((prev) => ({ position: prev.position, error: err, ready: true })),
     );
-    return stop;
   }, [active]);
 
   return state;

@@ -1,18 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import type { DriverLocation } from "../services/transport";
 
-export type RealtimeDriver = {
-  id: string;
-  lat: number;
-  lng: number;
-  headingDeg: number;
-  seatsFree: number;
-  seatsTotal: number;
-  destinationId: string | null;
-  updatedAt: number;
-};
-
-export function useRealtimeDrivers(): RealtimeDriver[] {
-  const [drivers, setDrivers] = useState<RealtimeDriver[]>([]);
+export function useRealtimeDrivers(): DriverLocation[] {
+  const [drivers, setDrivers] = useState<DriverLocation[]>([]);
   const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
@@ -23,30 +13,25 @@ export function useRealtimeDrivers(): RealtimeDriver[] {
     function connect() {
       const ws = new WebSocket(url);
       wsRef.current = ws;
-
       ws.onopen = () => {
         ws.send(JSON.stringify({ type: "subscribe_passengers" }));
       };
-
       ws.onmessage = (event) => {
         try {
           const msg = JSON.parse(event.data as string);
           if (msg.type === "driver_update") {
-            setDrivers(msg.drivers as RealtimeDriver[]);
+            setDrivers(msg.drivers as DriverLocation[]);
           }
         } catch {}
       };
-
       ws.onclose = () => {
         wsRef.current = null;
         if (!closed) setTimeout(connect, 3000);
       };
-
       ws.onerror = () => { ws.close(); };
     }
 
     connect();
-
     return () => {
       closed = true;
       wsRef.current?.close();

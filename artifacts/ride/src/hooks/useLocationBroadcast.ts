@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import type { LatLng } from "@/lib/types";
+import type { LatLng } from "../types";
 
 type BroadcastOptions = {
   active: boolean;
@@ -31,7 +31,9 @@ export function useLocationBroadcast({
   useEffect(() => {
     if (!active) {
       if (wsRef.current) {
-        try { wsRef.current.send(JSON.stringify({ type: "driver_offline", id: driverId })); } catch {}
+        try {
+          wsRef.current.send(JSON.stringify({ type: "driver_offline", id: driverId }));
+        } catch {}
         wsRef.current.close();
         wsRef.current = null;
       }
@@ -52,26 +54,28 @@ export function useLocationBroadcast({
         ws.send(JSON.stringify({ type: "identify_driver", id: driverId }));
         interval = setInterval(() => {
           if (ws.readyState !== 1) return;
-          const { position: pos, headingDeg: hd, seatsFree: sf, seatsTotal: st, destinationId: did } = posRef.current;
+          const { position: pos, headingDeg: hd, seatsFree: sf, seatsTotal: st, destinationId: did } =
+            posRef.current;
           if (!pos) return;
-          ws.send(JSON.stringify({
-            type: "driver_location",
-            id: driverId,
-            lat: pos.lat,
-            lng: pos.lng,
-            headingDeg: hd,
-            seatsFree: sf,
-            seatsTotal: st,
-            destinationId: did,
-            updatedAt: Date.now(),
-          }));
+          ws.send(
+            JSON.stringify({
+              type: "driver_location",
+              id: driverId,
+              lat: pos.lat,
+              lng: pos.lng,
+              headingDeg: hd,
+              seatsFree: sf,
+              seatsTotal: st,
+              destinationId: did,
+              updatedAt: Date.now(),
+            }),
+          );
         }, 2000);
       };
 
       ws.onmessage = (event) => {
         try {
-          const msg = JSON.parse(event.data as string);
-          onMessageRef.current?.(msg);
+          onMessageRef.current?.(JSON.parse(event.data as string));
         } catch {}
       };
 
@@ -89,7 +93,9 @@ export function useLocationBroadcast({
       closed = true;
       if (interval) clearInterval(interval);
       if (wsRef.current) {
-        try { wsRef.current.send(JSON.stringify({ type: "driver_offline", id: driverId })); } catch {}
+        try {
+          wsRef.current.send(JSON.stringify({ type: "driver_offline", id: driverId }));
+        } catch {}
         wsRef.current.close();
         wsRef.current = null;
       }

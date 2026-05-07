@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { generatePassengers } from "@/lib/mockPassengers";
-import type { LatLng, PassengerRequest } from "@/lib/types";
+import { generatePassengers } from "../utils/mock";
+import type { LatLng, PassengerRequest } from "../types";
 
 const TICK_MS = 4000;
 

@@ -1,25 +1,31 @@
-import { Minus, Plus, Users } from "lucide-react";
+interface Props {
+  value: number;
+  max: number;
+  onChange: (v: number) => void;
+}
 
-type Props = {
-  total: number;
-  filled: number;
-  onChange: (filled: number) => void;
-};
-
-export default function SeatCounter({ total, filled, onChange }: Props) {
-  const free = Math.max(0, total - filled);
-  const isFull = free === 0;
+export default function SeatCounter({ value, max, onChange }: Props) {
   return (
-    <div className={`glass-pill rounded-full px-2 py-1 flex items-center gap-1.5 ${isFull ? "ring-1 ring-rose-400" : ""}`}>
-      <button onClick={() => onChange(Math.max(0, filled - 1))} className="w-6 h-6 rounded-full bg-[var(--color-surface-2)] active:bg-[var(--color-surface-3)] flex items-center justify-center" aria-label="One passenger left">
-        <Minus className="w-3 h-3 text-[var(--color-ink)]" />
+    <div className="phato-seat-counter">
+      <button
+        className="phato-seat-btn"
+        onClick={() => onChange(Math.max(0, value - 1))}
+        disabled={value <= 0}
+        aria-label="Decrease seats"
+      >
+        −
       </button>
-      <div className="flex items-center gap-1 px-1 min-w-[44px] justify-center">
-        <Users className="w-3 h-3 text-[var(--color-ink-soft)]" />
-        <span className="text-[11px] font-semibold text-[var(--color-ink)] tabular-nums">{filled}/{total}</span>
+      <div className="phato-seat-display">
+        <span className="phato-seat-value">{value}</span>
+        <span className="phato-seat-max">/{max}</span>
       </div>
-      <button onClick={() => onChange(Math.min(total, filled + 1))} className="w-6 h-6 rounded-full bg-brand active:bg-brand/85 flex items-center justify-center" aria-label="One passenger got in">
-        <Plus className="w-3 h-3 text-white" />
+      <button
+        className="phato-seat-btn"
+        onClick={() => onChange(Math.min(max, value + 1))}
+        disabled={value >= max}
+        aria-label="Increase seats"
+      >
+        +
       </button>
     </div>
   );

@@ -1,63 +1,75 @@
-# Phato & Relations — Two Vite + React apps in one workspace
+# Phato — Live Corridor Ride-Share App
 
-Two apps: **Phato Ride-Share** (live map ride-hailing for Assam corridors) and **Relationship Tracker** (CRM-style contact/pipeline manager), backed by a shared Express API + PostgreSQL.
+React + Vite ride-hailing app for Assam corridors (Hailakandi–Silchar), backed by a shared Express API + PostgreSQL.
 
 ## Run & Operate
 
 - Workflows manage all services — do NOT run `pnpm dev` at workspace root
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- `pnpm run typecheck` — full typecheck across all packages
 - Required env: `DATABASE_URL` — Postgres connection string (auto-provisioned)
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.x
-- Frontend: React 19 + Vite 7, Tailwind CSS v4, wouter (routing)
+- Frontend: React 19 + Vite 6, Tailwind CSS v4, framer-motion
 - API: Express 5 + WebSocket (ws) for real-time ride tracking
 - DB: PostgreSQL + Drizzle ORM (`lib/db/`)
-- Validation: Zod, `drizzle-zod`
-- API codegen: Orval (from `lib/api-spec/openapi.yaml`)
-- Maps: Leaflet + react-leaflet (Phato)
+- Maps: Leaflet + react-leaflet
 
 ## Where things live
 
-- `artifacts/ride/` — Phato Ride-Share frontend (`@workspace/ride`, previewPath `/ride/`)
-- `artifacts/relationships/` — Relationship Tracker frontend (`@workspace/relationships`, previewPath `/`)
-- `artifacts/api-server/` — Shared Express backend (`@workspace/api-server`, previewPath `/api`)
-- `lib/api-spec/openapi.yaml` — API contract (source of truth)
-- `lib/api-client-react/src/generated/` — Generated React Query hooks
-- `lib/api-zod/src/generated/` — Generated Zod schemas
+- `artifacts/ride/` — Phato Ride-Share frontend (`@workspace/ride`, port 5000)
+- `artifacts/api-server/` — Shared Express backend (`@workspace/api-server`, port 8080)
 - `lib/db/src/schema/` — Drizzle DB schema
+
+## Folder structure inside `artifacts/ride/src/`
+
+```
+app/           App.tsx — root with splash + role routing
+components/    SearchBar, Sidebar, BottomSheet, ChatTray, PickupCard, SeatCounter, SplashScreen
+hooks/         useGeolocation, useRealtimeDrivers, useLocationBroadcast, useDriverBroadcast,
+               usePickupRequest, useIncomingPickups, useChat, useSimulatedVehicles, useSimulatedPassengers
+maps/          MapView, VehicleMarkers, RoutePolyline, mapIcons
+screens/       PassengerScreen, DriverScreen
+services/      transport.ts — BroadcastChannel constants, localStorage helpers, role management
+types/         index.ts — all shared types
+utils/         geo.ts, geometry.ts, corridor.ts, matching.ts, routing.ts, mock.ts
+index.css      Global styles — pure B&W design system + map marker CSS
+main.tsx       React entry point
+```
 
 ## Architecture decisions
 
-- Two separate frontend artifacts share one api-server and one database
-- Phato uses WebSocket (`/api/ws/location`) for real-time driver location broadcasting — no DB required
-- Relationship Tracker uses full OpenAPI-first CRUD (Orval codegen → React Query hooks)
-- `BASE_PATH` env var controls Vite base URL per artifact (set by workflow)
-- Ride app uses simulated passengers/vehicles client-side (no persistent ride data in DB)
+- Phato uses WebSocket (`/api/ws/location`) for real-time driver location broadcasting
+- BroadcastChannel `phato_v1` for local tab communication (pickup requests, chat)
+- `phato_online_drivers` localStorage key stores active driver positions
+- Simulated passengers/vehicles client-side (no persistent ride data in DB)
+- Role stored in `phato_user_role` localStorage — "passenger" (default) or "driver"
+- `BASE_PATH` env var controls Vite base URL
 
 ## Product
 
-- **Phato Ride-Share**: White splash screen, DM Sans font, white theme-color. Passengers see live autos on a corridor map (Hailakandi–Silchar), request pickups, chat with drivers. Drivers broadcast location, accept/reject pickups. Hamburger ☰ opens a role-based slide-in **MenuSheet** (right-side drawer) with: Home Location pin setter, Trip History, Saved Places (starred map pins), Notifications, Become a Driver registration form (name + phone + vehicle + photos → Supabase), and Settings (map style switcher + polyline style picker). Route protection: `/driver` only accessible if `phato_user_role === "driver"`. Tile switching: Standard / Satellite / Dark / Terrain. Route styles: Apple / Uber / Glow / Minimal.
-- **Relationship Tracker**: CRM tool — manage contacts through a configurable pipeline with stages, tags, interaction history, and dashboard summaries.
+- **Splash**: Black screen, white "Phato" + animated dots for 2.2s → auto-opens PassengerScreen
+- **Passenger mode**: Map-first layout, floating search bar + hamburger (right), sidebar from right. Search destinations, tap auto markers to see info + request pickup, chat after acceptance.
+- **Driver mode**: Online/offline toggle, seat counter, incoming pickup cards, chat. Switch via sidebar → Become a Driver.
+- **Sidebar** (slides from right): Map, Trip History, Saved Places, Notifications, Settings, Help, About Phato, Become a Driver / Back to Passenger
+- **Transport**: Corridor matching along NH306/Badarpur Spur/Sonai Spur. OSRM routing for route display. Heading + corridor distance filtering for matches.
+
+## Design system
+
+- Pure black (#000) and white (#fff) — no color accents
+- DM Sans font throughout
+- 16px base, 700 for headings, 600 for labels, 500 for body
+- Rounded corners: 14–24px for sheets/cards, 12px for buttons
+- Shadows: soft `rgba(0,0,0,0.10)` overlays
+
+## Gotchas
+
+- `L.control()` factory not callable in TypeScript — use `L.Control.extend()` + `new`
+- WebSocket endpoint is at `/api/ws/location` — handled in `artifacts/api-server/src/index.ts`
+- Port conflicts: if port 8080 conflicts, kill stale PID via `/proc/[pid]/fd`
+- `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` are unused (Supabase removed)
+- All user prefs stored in localStorage: `phato_user_role`, `phato_passenger_id`, `phato_driver_id`
 
 ## User preferences
 
 _Populate as you learn them._
-
-## Gotchas
-
-- Run `pnpm --filter @workspace/api-spec run codegen` before starting `relationships` frontend if API spec changes
-- Ride app uses Vite 6 (pinned in its package.json); relationships uses Vite 7 from catalog
-- WebSocket endpoint is at `/api/ws/location` — handled in `artifacts/api-server/src/index.ts` via `http.createServer`
-- Port conflicts: `.migration-backup/artifacts/*` workflows share ports with `artifacts/*` — if port 21738/8080 conflict, kill stale PID via `/proc/[pid]/fd` socket inode lookup (`kill -9 PID`)
-- `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` are optional — `supabase.ts` exports `supabaseConfigured` (boolean); DriverRegisterSheet shows error if unconfigured
-- All user prefs stored in localStorage: `phato_map_style`, `phato_polyline_style`, `phato_home_location`, `phato_saved_places`, `phato_user_role`, `phato_profile_img`
-
-## Pointers
-
-- See `pnpm-workspace` skill for workspace structure and TypeScript setup
-- Drizzle schema: `lib/db/src/schema/`
-- OpenAPI spec: `lib/api-spec/openapi.yaml`
