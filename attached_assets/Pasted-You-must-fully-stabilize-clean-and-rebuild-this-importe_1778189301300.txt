@@ -1,0 +1,223 @@
+You must fully stabilize, clean, and rebuild this imported Phato project into a working production-quality Replit app without breaking the realtime transport logic.
+
+The current imported GitHub project is messy, inconsistent, partially broken, and causing preview/server issues. Do NOT preserve unnecessary structure or outdated UI. Extract the useful transport systems and rebuild the experience cleanly while ensuring the app ALWAYS runs correctly in Replit preview.
+
+MOST IMPORTANT REQUIREMENTS:
+- The app MUST run successfully inside Replit preview with NO HTTP 502 errors.
+- The Vite server MUST bind correctly using:
+  npm run dev -- --host 0.0.0.0
+- Ensure the correct Replit port exposure and preview compatibility.
+- Remove routing/path issues causing broken previews.
+- Make the app run from "/" root correctly.
+- Eliminate crashes, dependency conflicts, duplicate logic, broken imports, and unused code.
+- Prioritize stability, smoothness, and performance above everything else.
+
+APP CONCEPT:
+Phato is a realtime shared transport app for local corridor-based travel. It is NOT a generic taxi app. It focuses on live transport visibility, route matching, route polylines, shared autos/tuktuks, realtime driver movement, and minimal map-first UX.
+
+NEW EXPERIENCE FLOW:
+1. App launches
+2. Black splash screen appears
+3. Smooth animated white dots play for exactly 2.2 seconds
+4. Passenger screen opens automatically
+5. No role-selection startup screen anymore
+
+DESIGN STYLE:
+Rebuild the entire UI into:
+- black and white only
+- ChatGPT-style simplicity
+- Apple-like smoothness
+- ultra-minimal design
+- soft shadows
+- subtle glass blur
+- rounded corners
+- smooth transitions
+- lightweight animations
+- fast rendering
+- premium mobile-first layout
+
+Avoid:
+- colorful UI
+- clutter
+- heavy gradients
+- inconsistent cards
+- oversized buttons
+- complicated menus
+- noisy visuals
+
+PASSENGER SCREEN:
+The passenger screen should be the default home screen after splash.
+
+TOP BAR:
+At the top:
+- minimal search bar
+- hamburger icon on the RIGHT side of the search bar
+
+Search bar:
+- clean black/white style
+- soft rounded edges
+- destination search
+- lightweight animation
+- instant typing response
+
+SIDEBAR:
+Clicking the hamburger icon opens a smooth sidebar drawer.
+
+Sidebar items:
+- Profile
+- Trips
+- Saved Places
+- Notifications
+- Settings
+- Help
+- About Phato
+- Become a Driver
+
+Sidebar behavior:
+- smooth slide animation
+- black/white theme
+- minimal spacing
+- clean typography
+- lightweight rendering
+
+DRIVER MODE:
+Clicking "Become a Driver" instantly switches into Driver mode.
+
+NO verification yet.
+NO onboarding flow yet.
+Just:
+- tap
+- smooth transition
+- driver dashboard opens
+
+DRIVER SCREEN:
+The driver screen should include:
+- live map
+- driver marker
+- route polyline
+- online/offline toggle
+- seat counter
+- pickup request cards
+- accept/decline buttons
+- route selection
+- chat tray
+- quick pings
+- trip state
+- demand hints
+
+Everything should remain:
+- minimal
+- black/white
+- smooth
+- fast
+
+KEEP AND IMPROVE THESE EXISTING FEATURES:
+Extract and preserve the strong transport logic already present in the imported codebase:
+
+- realtime WebSocket updates
+- live driver broadcasting
+- passenger-driver direction matching
+- route corridor matching
+- route polylines
+- destination matching
+- pickup requests
+- trip tracking
+- trip state flow
+- quick pings
+- chat system
+- smooth markers
+- corridor intelligence
+- demand visualization
+- seat logic
+- nearby vehicle logic
+
+DO NOT preserve the old messy UI or architecture.
+
+MAP EXPERIENCE:
+The map must become the center of the app.
+
+The map should include:
+- smooth moving vehicle markers
+- passenger markers
+- destination markers
+- live route polylines
+- active trip path
+- pickup indicators
+- demand halos
+- zoom controls
+- recenter control
+- smooth movement interpolation
+- lightweight overlays
+
+All map interactions must feel smooth and premium.
+
+TECHNICAL REBUILD:
+Refactor into a clean structure:
+
+src/
+  app/
+  components/
+  screens/
+  maps/
+  hooks/
+  services/
+  store/
+  styles/
+  types/
+  utils/
+
+Remove:
+- duplicate files
+- broken imports
+- dead components
+- unused code
+- unstable routing
+- outdated styles
+- unnecessary complexity
+
+Use:
+- React
+- TypeScript
+- Vite
+- react-leaflet
+- lightweight state management
+- reusable hooks
+- reusable components
+- modular architecture
+
+PERFORMANCE PRIORITY:
+Optimize for:
+1. startup speed
+2. smoothness
+3. low memory usage
+4. map responsiveness
+5. mobile performance
+6. clean animations
+7. realtime responsiveness
+
+REPLIT REQUIREMENTS:
+Ensure:
+- npm install succeeds
+- npm run dev works
+- Vite binds correctly
+- preview works without 502
+- all dependencies install correctly
+- no runtime crashes occur
+- the app works correctly in Replit mobile preview
+
+FINAL RESULT:
+The final result should feel like a premium realtime corridor transport platform:
+- splash dots animation
+- direct passenger home
+- top search bar
+- hamburger sidebar
+- instant driver switching
+- black/white premium design
+- smooth live map
+- realtime shared transport system
+- minimal modern UX
+- stable Replit deployment
+
+Most importantly:
+STABILIZE THE APP FIRST.
+THEN rebuild the UI cleanly while preserving the transport logic.
