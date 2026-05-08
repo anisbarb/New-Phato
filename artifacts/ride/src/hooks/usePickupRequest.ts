@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  PHATO_CHANNEL,
-  readDriversMap,
-} from "../services/transport";
-import type { DriverLocation } from "../services/transport";
-import type { PickupStatus, PickupRequestState } from "../types";
+import { PHATO_CHANNEL, readDriversMap } from "../lib/transport";
+import type { DriverLocation } from "../lib/transport";
+import type { PickupStatus, PickupRequestState } from "../lib/types";
 
 type Opts = {
   passengerId: string;

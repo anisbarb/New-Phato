@@ -1,4 +1,4 @@
-import type { LatLng, Vehicle, PassengerRequest, Destination, RouteConfidence } from "../types";
+import type { LatLng, Vehicle, PassengerRequest, Destination, RouteConfidence } from "./types";
 import { haversineMeters } from "./geo";
 import { bearingDeg, bearingDiff, pointToPolylineDist } from "./geometry";
 

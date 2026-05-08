@@ -1,5 +1,5 @@
-import type { LatLng, RouteResult } from "../types";
-import { isValidLatLng } from "../types";
+import type { LatLng, RouteResult } from "./types";
+import { isValidLatLng } from "./types";
 
 const OSRM_URL = "https://router.project-osrm.org/route/v1/driving";
 

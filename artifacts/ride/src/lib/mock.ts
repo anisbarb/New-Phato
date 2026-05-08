@@ -1,7 +1,7 @@
 import { PLACES, CORRIDOR_POINTS, CORRIDOR_TOWN_IDS } from "./corridor";
 import { bearingDeg } from "./geometry";
 import { haversineMeters } from "./geo";
-import type { LatLng, Vehicle, PassengerRequest } from "../types";
+import type { LatLng, Vehicle, PassengerRequest } from "./types";
 
 const PREFIXES = ["AS-11", "AS-10", "AS-01", "AS-24", "AS-03", "AS-07"];
 

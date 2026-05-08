@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { ChatMessage } from "../types";
+import type { ChatMessage } from "../lib/types";
 
 interface Props {
   open: boolean;
@@ -38,7 +38,7 @@ export default function ChatTray({ open, onClose, messages, onSend, toName }: Pr
             <span className="phato-chat-title">{toName ?? "Chat"}</span>
             <button className="phato-chat-close" onClick={onClose} aria-label="Close chat">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-                <path d="M18 6 6 18M6 6l12 12"/>
+                <path d="M18 6 6 18M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -48,10 +48,7 @@ export default function ChatTray({ open, onClose, messages, onSend, toName }: Pr
               <p className="phato-chat-empty">No messages yet</p>
             )}
             {messages.map((m) => (
-              <div
-                key={m.chatId}
-                className={`phato-chat-bubble ${m.fromSelf ? "self" : "other"}`}
-              >
+              <div key={m.chatId} className={`phato-chat-bubble ${m.fromSelf ? "self" : "other"}`}>
                 {m.text}
               </div>
             ))}
@@ -74,7 +71,7 @@ export default function ChatTray({ open, onClose, messages, onSend, toName }: Pr
               aria-label="Send"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
               </svg>
             </button>
           </div>

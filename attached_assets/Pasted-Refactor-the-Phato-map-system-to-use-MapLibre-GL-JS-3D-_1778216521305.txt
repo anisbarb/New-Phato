@@ -1,0 +1,124 @@
+Refactor the Phato map system to use MapLibre GL JS 3D terrain as the main map engine.
+
+GOAL
+Build a clean, minimal, Apple-style Phato UI with:
+
+- Passenger mode
+- Driver mode
+- Hamburger sidebar
+- real working buttons
+- smooth map motion
+- 3D terrain map
+- minimal folder structure
+- less duplicated code
+- easy-to-maintain components
+
+IMPORTANT
+
+- Work only inside the REAL app folder used by localhost.
+- Remove unnecessary code, dead code, duplicate screens, unused imports, and broken old map logic.
+- Keep the app simple and stable.
+- Do not create a big folder mess.
+- Use only a few clear folders for components, pages, hooks, and lib.
+- Prefer one reusable component per UI pattern instead of many one-off files.
+
+MAP REQUIREMENTS
+Use MapLibre GL JS with 3D terrain like the official example:
+
+- terrain source using raster-dem
+- hillshade layer for elevation depth
+- sky layer if needed for realism
+- smooth pitch/zoom/rotation
+- navigation controls
+- recenter/follow user behavior
+- stable live location marker
+- smooth marker transitions
+- mobile-first performance
+
+UX REQUIREMENTS
+Passenger mode:
+
+- opens directly to the map
+- search bar at top
+- floating location/recenter button
+- clean minimal bottom sheet
+- nearby vehicles shown clearly
+- tap vehicle opens details
+- tap hamburger opens sidebar
+
+Driver mode:
+
+- simple online/offline state
+- route/corridor visible on map
+- seat count control
+- pickup requests
+- driver-specific sidebar actions
+- switch from passenger to driver from menu
+
+SIDEBAR REQUIREMENTS
+Hamburger menu must have working actions:
+
+- Map
+- Trip History
+- Saved Places
+- Notifications
+- Settings
+- Help
+- About Phato
+- Switch to Driver Mode
+
+BUTTON BEHAVIOR
+Every button must do something real:
+
+- open/close panel
+- navigate between passenger and driver
+- recenter map
+- toggle online/offline
+- open sheets
+- dismiss panels
+- switch views without reload
+
+CLEANUP REQUIREMENTS
+
+- Delete or stop using old broken screen flow if it is no longer needed.
+- Remove duplicated route systems.
+- Keep only one route structure.
+- Keep only one map engine.
+- Remove placeholder screens if real screens exist.
+- Reduce files by merging tiny components where it makes sense.
+
+PROJECT STRUCTURE
+Keep the code organized with a simple structure like:
+
+- src/components
+- src/pages
+- src/hooks
+- src/lib
+- src/styles
+
+DO NOT
+
+- do not add random extra folders
+- do not keep unused prototype screens
+- do not leave broken imports
+- do not leave old map code alive in parallel
+
+OUTPUT EXPECTATION
+After refactor:
+
+- app opens cleanly in localhost
+- Passenger mode works
+- Driver mode works
+- Sidebar works
+- MapLibre 3D terrain works
+- code is smaller, cleaner, and easier to maintain
+- no white screen
+- no import errors
+- no broken buttons
+
+Before finishing, run:
+
+- typecheck
+- build
+- fix all errors
+- ensure the app runs on localhost again

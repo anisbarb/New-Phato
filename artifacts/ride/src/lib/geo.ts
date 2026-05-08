@@ -1,4 +1,4 @@
-import type { LatLng } from "../types";
+import type { LatLng } from "./types";
 
 export const DEFAULT_CENTER: LatLng = { lat: 24.8333, lng: 92.7789 };
 

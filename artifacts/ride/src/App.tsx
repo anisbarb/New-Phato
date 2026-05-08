@@ -1,26 +1,25 @@
 import { useState, useCallback } from "react";
-import SplashScreen from "../components/SplashScreen";
-import PassengerScreen from "../screens/PassengerScreen";
-import DriverScreen from "../screens/DriverScreen";
-import { getUserRole } from "../services/transport";
+import Splash from "./components/Splash";
+import Passenger from "./pages/Passenger";
+import Driver from "./pages/Driver";
+import { getUserRole } from "./lib/transport";
 
 export default function App() {
   const [splashDone, setSplashDone] = useState(false);
   const [role, setRole] = useState<"passenger" | "driver">(getUserRole);
 
   const handleSplashDone = useCallback(() => setSplashDone(true), []);
-
   const handleBecomeDriver = useCallback(() => setRole("driver"), []);
   const handleBackToPassenger = useCallback(() => setRole("passenger"), []);
 
   return (
     <>
-      {!splashDone && <SplashScreen onDone={handleSplashDone} />}
+      {!splashDone && <Splash onDone={handleSplashDone} />}
       {splashDone && role === "passenger" && (
-        <PassengerScreen onBecomeDriver={handleBecomeDriver} />
+        <Passenger onBecomeDriver={handleBecomeDriver} />
       )}
       {splashDone && role === "driver" && (
-        <DriverScreen onBackToPassenger={handleBackToPassenger} />
+        <Driver onBackToPassenger={handleBackToPassenger} />
       )}
     </>
   );

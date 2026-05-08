@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import type { LatLng } from "../types";
+import type { LatLng } from "../lib/types";
 
 type BroadcastOptions = {
   active: boolean;
@@ -21,7 +21,7 @@ export function useLocationBroadcast({
   seatsTotal,
   destinationId,
   onMessage,
-}: BroadcastOptions): React.MutableRefObject<WebSocket | null> {
+}: BroadcastOptions) {
   const wsRef = useRef<WebSocket | null>(null);
   const posRef = useRef({ headingDeg, seatsFree, seatsTotal, destinationId, position });
   posRef.current = { headingDeg, seatsFree, seatsTotal, destinationId, position };

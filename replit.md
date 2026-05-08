@@ -11,9 +11,9 @@ React + Vite ride-hailing app for Assam corridors (Hailakandi–Silchar), backed
 
 - pnpm workspaces, Node.js 24, TypeScript 5.x
 - Frontend: React 19 + Vite 6, Tailwind CSS v4, framer-motion
+- Map: **MapLibre GL JS v5** with 3D terrain (replaced Leaflet)
 - API: Express 5 + WebSocket (ws) for real-time ride tracking
 - DB: PostgreSQL + Drizzle ORM (`lib/db/`)
-- Maps: Leaflet + react-leaflet
 
 ## Where things live
 
@@ -24,21 +24,45 @@ React + Vite ride-hailing app for Assam corridors (Hailakandi–Silchar), backed
 ## Folder structure inside `artifacts/ride/src/`
 
 ```
-app/           App.tsx — root with splash + role routing
-components/    SearchBar, Sidebar, BottomSheet, ChatTray, PickupCard, SeatCounter, SplashScreen
-hooks/         useGeolocation, useRealtimeDrivers, useLocationBroadcast, useDriverBroadcast,
-               usePickupRequest, useIncomingPickups, useChat, useSimulatedVehicles, useSimulatedPassengers
-maps/          MapView, VehicleMarkers, RoutePolyline, mapIcons
-screens/       PassengerScreen, DriverScreen
-services/      transport.ts — BroadcastChannel constants, localStorage helpers, role management
-types/         index.ts — all shared types
-utils/         geo.ts, geometry.ts, corridor.ts, matching.ts, routing.ts, mock.ts
-index.css      Global styles — pure B&W design system + map marker CSS
-main.tsx       React entry point
+lib/           All shared types + utilities
+  types.ts     All shared TypeScript types
+  transport.ts BroadcastChannel constants, localStorage helpers, role management
+  corridor.ts  NH306 / Badarpur / Sonai corridor polylines + PLACES list
+  geo.ts       Geolocation, haversine, stepToward
+  geometry.ts  Bearing, bearingDiff, pointToPolylineDist
+  matching.ts  Vehicle/passenger corridor-matching logic
+  mock.ts      Deterministic vehicle + passenger generators
+  routing.ts   OSRM fetchRoute, formatDistance, formatDuration
+hooks/
+  useGeolocation.ts        GPS watch position
+  useSimulatedVehicles.ts  Tick-based simulated autos
+  useSimulatedPassengers.ts Simulated waiting passengers
+  useChat.ts               Chat message state
+  usePickupRequest.ts      Passenger→driver pickup flow
+  useIncomingPickups.ts    Driver incoming pickup handler
+  useDriverBroadcast.ts    BroadcastChannel driver location
+  useLocationBroadcast.ts  WebSocket driver location broadcast
+  useRealtimeDrivers.ts    WebSocket passenger listener
+components/
+  Map.tsx         MapLibre GL JS map (3D terrain, vehicle/pax markers, route line)
+  SearchBar.tsx   Floating search bar with autocomplete
+  Sidebar.tsx     Right-side slide-in menu
+  Sheet.tsx       Generic bottom sheet (spring animation)
+  ChatTray.tsx    Full-height chat panel
+  PickupCard.tsx  Driver incoming pickup accept/decline card
+  SeatCounter.tsx +/- seat counter
+  Splash.tsx      Black-screen splash with animated dots
+pages/
+  Passenger.tsx  Main passenger screen
+  Driver.tsx     Main driver screen
+App.tsx          Root: splash → passenger/driver routing
+main.tsx         React entry point
+index.css        Pure B&W design system (no Leaflet CSS)
 ```
 
 ## Architecture decisions
 
+- **Map**: MapLibre GL JS v5 with `https://tiles.openfreemap.org/styles/bright` style + `demotiles.maplibre.org` terrain DEM, pitch=45 for 3D
 - Phato uses WebSocket (`/api/ws/location`) for real-time driver location broadcasting
 - BroadcastChannel `phato_v1` for local tab communication (pickup requests, chat)
 - `phato_online_drivers` localStorage key stores active driver positions
@@ -64,10 +88,11 @@ main.tsx       React entry point
 
 ## Gotchas
 
-- `L.control()` factory not callable in TypeScript — use `L.Control.extend()` + `new`
+- Component named `MapGL` (not `Map`) to avoid native JS `Map` collision inside `Map.tsx`
+- MapLibre v5: `antialias` moved to `canvasContextAttributes: { antialias: true }`
+- Native `Map<K,V>` instances in `Map.tsx` must use `new globalThis.Map()` to avoid confusion with the component
 - WebSocket endpoint is at `/api/ws/location` — handled in `artifacts/api-server/src/index.ts`
 - Port conflicts: if port 8080 conflicts, kill stale PID via `/proc/[pid]/fd`
-- `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` are unused (Supabase removed)
 - All user prefs stored in localStorage: `phato_user_role`, `phato_passenger_id`, `phato_driver_id`
 
 ## User preferences

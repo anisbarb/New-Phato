@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import type { IncomingPickup } from "../types";
+import type { IncomingPickup } from "../lib/types";
 
 export function useIncomingPickups(driverId: string) {
   const [incoming, setIncoming] = useState<IncomingPickup | null>(null);

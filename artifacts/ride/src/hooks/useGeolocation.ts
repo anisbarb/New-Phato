@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { watchPosition } from "../utils/geo";
-import type { GeoError } from "../utils/geo";
-import type { LatLng } from "../types";
+import { watchPosition } from "../lib/geo";
+import type { GeoError } from "../lib/geo";
+import type { LatLng } from "../lib/types";
 
 type GeoState = {
   position: LatLng | null;

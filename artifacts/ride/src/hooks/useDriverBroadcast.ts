@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef } from "react";
 import {
   PHATO_CHANNEL,
-  DRIVERS_LS_KEY,
   readDriversMap,
   writeDriversMap,
-} from "../services/transport";
-import type { DriverLocation } from "../services/transport";
-import type { LatLng } from "../types";
+} from "../lib/transport";
+import type { DriverLocation } from "../lib/transport";
+import type { LatLng } from "../lib/types";
 
 type Opts = {
   active: boolean;

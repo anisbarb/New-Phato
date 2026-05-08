@@ -5,7 +5,7 @@ interface Props {
   onDone: () => void;
 }
 
-export default function SplashScreen({ onDone }: Props) {
+export default function Splash({ onDone }: Props) {
   const [dotCount, setDotCount] = useState(0);
   const [visible, setVisible] = useState(true);
 

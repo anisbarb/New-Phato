@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { generateVehicles } from "../utils/mock";
-import { getPlace } from "../utils/corridor";
-import { stepToward, haversineMeters } from "../utils/geo";
-import { bearingDeg } from "../utils/geometry";
-import type { LatLng, Vehicle } from "../types";
+import { generateVehicles } from "../lib/mock";
+import { getPlace } from "../lib/corridor";
+import { stepToward, haversineMeters } from "../lib/geo";
+import { bearingDeg } from "../lib/geometry";
+import type { LatLng, Vehicle } from "../lib/types";
 
 const TICK_MS = 2500;
 const STEP_METERS = 80;

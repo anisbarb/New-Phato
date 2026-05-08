@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { DriverLocation } from "../services/transport";
+import type { DriverLocation } from "../lib/transport";
 
 export function useRealtimeDrivers(): DriverLocation[] {
   const [drivers, setDrivers] = useState<DriverLocation[]>([]);

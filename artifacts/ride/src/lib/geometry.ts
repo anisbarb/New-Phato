@@ -1,4 +1,4 @@
-import type { LatLng } from "../types";
+import type { LatLng } from "./types";
 import { haversineMeters } from "./geo";
 
 export function bearingDeg(a: LatLng, b: LatLng): number {

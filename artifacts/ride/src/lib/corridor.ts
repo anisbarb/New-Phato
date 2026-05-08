@@ -1,4 +1,4 @@
-import type { LatLng, Place } from "../types";
+import type { LatLng, Place } from "./types";
 import { haversineMeters } from "./geo";
 
 export const NH306: LatLng[] = [
